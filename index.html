@@ -1,63 +1,110 @@
-<!DOCTYPE html>
-<html lang="pl">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Logowanie</title>
-    <!-- Połącz plik CSS -->
-    <link rel="stylesheet" href="styles.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Logowanie - Metal Vault</title>
+    <style type="text/css">
+      body {
+        background-color: #0d0d0d;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+      }
+      /* „Przycisk” - prosty styl inline */
+      .btn {
+        background-color: #ff3d3d;
+        color: #ffffff;
+        font-weight: bold;
+        border: 1px solid #ffffff;
+        padding: 3px 10px;
+        cursor: pointer;
+      }
+      .input-field {
+        background-color: #0d0d0d;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+      }
+      a { color: #ff3d3d; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .social-btn {
+        background-color: #2a2a2a;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        padding: 2px 8px;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <!-- Logo w lewym górnym rogu -->
-    <div class="logo">
-      <span class="logo-icon">🎵</span> METAL VAULT
+    <div align="left" style="margin: 10px;">
+      <font size="3"><b>🎵 METAL <font color="#ff3d3d">VAULT</font></b></font>
     </div>
-
-    <!-- Główny kontener na środek strony -->
-    <div class="auth-box">
-      <h1>Witaj Ponownie</h1>
-      <p class="subtitle">Zaloguj się na swoje konto, aby kontynuować</p>
-
-      <!-- Zakładki Logowanie / Rejestracja -->
-      <div class="tabs">
-        <button class="active">Logowanie</button>
-        <button>Rejestracja</button>
-      </div>
-
-      <!-- Formularz logowania -->
-      <form action="/login" method="post">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="twoj.email@przyklad.pl"
-          required
-        />
-
-        <div class="password-label">
-          <label for="password">Hasło</label>
-          <a href="#" class="forgot-pass">Zapomniałeś hasła?</a>
-        </div>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="********"
-          required
-        />
-
-        <button class="primary" type="submit">Zaloguj się</button>
-      </form>
-
-      <!-- Separator -->
-      <div class="divider">LUB KONTYNUUJ PRZEZ</div>
-
-      <!-- Przyciski logowania społecznościowego -->
-      <div class="social-buttons">
-        <button class="social">Google</button>
-        <button class="social">Facebook</button>
-      </div>
-    </div>
+    
+    <!-- Główny kontener (wykorzystanie tabeli do centrowania treści) -->
+    <center>
+      <table border="1" cellspacing="0" cellpadding="5" width="400" style="background-color: #1a1a1a; border-color: #ffffff;">
+        <tr>
+          <td align="center">
+            <!-- Nagłówek -->
+            <font face="Verdana" size="5"><b>Witaj Ponownie</b></font>
+            <br>
+            <font face="Verdana" size="2">Zaloguj się na swoje konto, aby kontynuować</font>
+            <br><br>
+            
+            <!-- Zakładki -->
+            <table border="1" cellspacing="0" cellpadding="2" width="80%" style="border-color: #ffffff;">
+              <tr>
+                <td align="center" bgcolor="#000000">
+                  <font size="2">Logowanie</font>
+                </td>
+                <td align="center" bgcolor="#1a1a1a">
+                  <font size="2"><a href="rejestracja.html">Rejestracja</a></font>
+                </td>
+              </tr>
+            </table>
+            <br>
+            
+            <!-- Formularz logowania -->
+            <form action="/login" method="post">
+              <table border="0" cellspacing="2" cellpadding="2">
+                <tr>
+                  <td align="left"><font size="2"><b>Email:</b></font></td>
+                </tr>
+                <tr>
+                  <td><input type="text" name="email" size="30" class="input-field"></td>
+                </tr>
+                <tr>
+                  <td align="left">
+                    <font size="2"><b>Hasło:</b></font>
+                    &nbsp;&nbsp;
+                    <font size="1"><a href="#">Zapomniałeś hasła?</a></font>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="password" name="password" size="30" class="input-field"></td>
+                </tr>
+                <tr>
+                  <td align="center"><br>
+                    <input type="submit" value="Zaloguj się" class="btn">
+                  </td>
+                </tr>
+              </table>
+            </form>
+            <br>
+            
+            <!-- Separator -->
+            <font size="2">LUB KONTYNUUJ PRZEZ</font>
+            <br><br>
+            
+            <!-- Przycisk społecznościowy -->
+            <input type="button" value="Google" class="social-btn">
+            &nbsp;
+            <input type="button" value="Facebook" class="social-btn">
+            
+          </td>
+        </tr>
+      </table>
+      <br><br>
+    </center>
   </body>
 </html>
