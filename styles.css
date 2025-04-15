@@ -1,55 +1,68 @@
-body {
+/* -------- RESET / PODSTAWA -------- */
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #0d0d0d;
-  color: #fff;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0d0d0d; /* tło całej strony - bardzo ciemne */
+  color: #ffffff;           /* domyślny kolor czcionki */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  position: relative; /* by logo mogło być w top/left */
 }
 
-.auth-container {
-  text-align: center;
-}
-
+/* -------- LOGO W LEWYM GÓRNYM ROGU -------- */
 .logo {
   position: absolute;
   top: 1rem;
   left: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
-  color: #fff;
-  font-size: 1.1rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.logo span {
-  color: #ff3d3d;
+.logo-icon {
+  font-size: 1.2rem;
 }
 
+/* -------- GŁÓWNY BOX CENTRUM STRONY -------- */
 .auth-box {
-  background-color: #1a1a1a;
+  background-color: #1a1a1a; /* ciemniejszy odcień czerni dla wyróżnienia boxu */
   padding: 2rem;
   border-radius: 10px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-.auth-box h2 {
-  margin: 0;
+/* Tytuł, np. “Witaj ponownie” */
+.auth-box h1 {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: #ffffff;
 }
 
-.auth-box p {
-  font-size: 0.95rem;
-  color: #ccc;
+/* Podtytuł, np. “Zaloguj się na swoje konto…” */
+.subtitle {
+  font-size: 0.9rem;
+  color: #cccccc;
   margin-bottom: 1.5rem;
 }
 
+/* -------- ZAKŁADKI: LOGOWANIE / REJESTRACJA -------- */
 .tabs {
   display: flex;
   margin-bottom: 1rem;
-  border: 1px solid #333;
+  border: 1px solid #333333;
   border-radius: 6px;
   overflow: hidden;
 }
@@ -57,113 +70,138 @@ body {
 .tabs button {
   flex: 1;
   padding: 0.5rem;
-  background: none;
   border: none;
-  color: #bbb;
-  font-weight: 500;
+  background-color: #1a1a1a;
+  color: #999999;
   cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .tabs .active {
-  background-color: #000;
-  color: #fff;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* -------- FORMULARZ LOGOWANIA -------- */
+form {
+  text-align: left;
 }
 
 label {
   display: block;
-  text-align: left;
-  margin: 1rem 0 0.3rem;
+  margin-bottom: 0.4rem;
   font-weight: 500;
+  font-size: 0.9rem;
 }
 
-.pass-label {
+input[type='email'],
+input[type='password'] {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border: 1px solid #333333;
+  border-radius: 6px;
+  background-color: #0d0d0d;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+input::placeholder {
+  color: #999999;
+  font-size: 0.85rem;
+}
+
+/* Etykieta “Hasło” + link “Zapomniałeś hasła?” */
+.password-label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.4rem;
 }
 
-.pass-label a {
-  font-size: 0.85rem;
-  color: #ff3d3d;
+.forgot-pass {
+  font-size: 0.8rem;
   text-decoration: none;
+  color: #ff3d3d; /* czerwony link */
+  transition: color 0.3s;
 }
 
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #333;
-  border-radius: 6px;
-  background-color: #121212;
-  color: white;
-  font-size: 1rem;
+.forgot-pass:hover {
+  color: #ff2f2f;
 }
 
-.password-field {
-  position: relative;
-}
-
-.password-field .eye {
-  position: absolute;
-  right: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #aaa;
-}
-
+/* -------- PRZYCISK “ZALOGUJ SIĘ” -------- */
 button.primary {
-  background-color: #ff3d3d;
-  color: white;
-  border: none;
   width: 100%;
   padding: 0.75rem;
-  margin-top: 1rem;
+  background-color: #ff3d3d; /* główny akcent - czerwony */
+  color: #ffffff;
+  border: none;
   border-radius: 6px;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
 button.primary:hover {
-  background-color: #e03030;
+  background-color: #e72c2c;
 }
 
+/* -------- SEPARATOR - LUB KONTYNUUJ PRZEZ -------- */
 .divider {
   margin: 1.5rem 0 1rem;
   font-size: 0.75rem;
-  color: #666;
+  color: #999999;
   position: relative;
+  text-align: center;
 }
 
 .divider::before,
 .divider::after {
-  content: "";
+  content: '';
   display: inline-block;
-  width: 40%;
+  width: 30%;
   height: 1px;
-  background-color: #333;
+  background-color: #333333;
   vertical-align: middle;
   margin: 0 0.5rem;
 }
 
+/* -------- PRZYCISKI GOOGLE / FACEBOOK -------- */
 .social-buttons {
   display: flex;
   gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 button.social {
   flex: 1;
-  background-color: #000;
-  border: 1px solid #333;
-  color: #fff;
+  background-color: #2a2a2a;
+  border: none;
+  color: #ffffff;
   padding: 0.6rem;
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
 button.social:hover {
-  background-color: #111;
+  background-color: #333333;
+}
+
+/* -------- RESPONSYWNOŚĆ MOBILE -------- */
+@media (max-width: 480px) {
+  .auth-box {
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+  .tabs {
+    font-size: 0.8rem;
+  }
+  .tabs button {
+    padding: 0.4rem;
+  }
 }
