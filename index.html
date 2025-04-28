@@ -1,165 +1,115 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="pl">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Logowanie - Metal Vault (Popupy odbijające się jak screensaver)</title>
-  <style type="text/css">
+  <meta charset="UTF-8">
+  <title>Metal Vault - CHAOS V3</title>
+  <style>
     body {
-      background-color: #00FFFF;
-      font-family: "Comic Sans MS", cursive, sans-serif;
-      color: #FF00FF;
+      margin: 0;
+      padding: 0;
       overflow: hidden;
+      background: #00FFFF;
+      font-family: Comic Sans MS, cursive;
     }
-    .btn, .social-btn {
-      border: 3px dotted #FFFF00;
-      padding: 5px 15px;
-      font-weight: bold;
+    .login-container {
+      position: relative;
+      margin: 100px auto;
+      width: 600px;
+      background: #FF00FF;
+      padding: 20px;
+      border: 5px double yellow;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      z-index: 1;
+    }
+    .login-form {
+      width: 50%;
+      padding-right: 10px;
+    }
+    .login-form h1 {
+      font-size: 24px;
+    }
+    .login-form input, .login-form button {
+      width: 90%;
+      margin: 5px 0;
+      padding: 10px;
+    }
+    .wizard {
+      text-align: center;
+      width: 50%;
+    }
+    .popup, .gif-fly {
+      position: absolute;
+      z-index: 5;
+    }
+    .fullscreen-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('error.jpg') center center / cover no-repeat;
+      z-index: 10;
+      display: none;
+    }
+    #wizard-img {
       cursor: pointer;
     }
-    .btn {
-      background-color: #FF0000;
-      color: #FFFFFF;
-      font-size: 16px;
-    }
-    .social-btn {
-      background-color: #00FF00;
-      color: #FF0000;
-      font-size: 14px;
-    }
-    .input-field {
-      background-color: #FFFF00;
-      color: #0000FF;
-      border: 2px dashed #FF00FF;
-    }
-    a {
-      color: #FF0000;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .wizard-cell {
-      padding: 10px;
-      text-align: center;
-    }
-    .wizard-cell img {
-      border: 3px solid #FFFF00;
-    }
     .popup {
-      position: absolute;
-      width: 200px;
-      height: 100px;
-      background: #FFFF00;
-      border: 3px solid #FF0000;
+      background: yellow;
+      border: 2px solid red;
       padding: 10px;
-      font-size: 14px;
-      color: #0000FF;
-      text-align: center;
-      z-index: 9999;
-      box-shadow: 5px 5px 15px #000000;
+      font-weight: bold;
+      box-shadow: 5px 5px 15px #000;
     }
   </style>
 </head>
 <body>
 
-<!-- Popupy -->
-<div id="popup1" class="popup">🔥 Wygraj iPhone 3G!</div>
-<div id="popup2" class="popup">🎁 GRATULACJE! Jesteś 1000. gościem!</div>
-<div id="popup3" class="popup">🧙‍♂️ Tajna sztuczka czarodzieja! Kliknij!</div>
-
-<!-- Logo -->
-<div align="left" style="margin: 10px;">
-  <font size="6" color="#FF0000"><b>🎵 METAL <font color="#0000FF">VAULT</font></b></font>
+<!-- Pełnoekranowy error -->
+<div id="fullscreen" class="fullscreen-overlay">
+  <img id="gif1" class="gif-fly" src="2137-2138.gif" style="display:none; width:100px; height:100px;">
+  <img id="gif2" class="gif-fly" src="jp2-papaj.gif" style="display:none; width:100px; height:100px;">
 </div>
 
-<!-- Główny kontener -->
-<center>
-  <table border="5" cellspacing="0" cellpadding="10" width="700" bgcolor="#FF00FF" style="border: 5px double #FFFF00;">
-    <tr>
-      <td width="50%" valign="top">
-        <table border="5" cellspacing="0" cellpadding="10" width="100%" bgcolor="#FF00FF" style="border: 5px double #FFFF00;">
-          <tr>
-            <td align="center">
-              <marquee behavior="alternate" direction="left" style="font-size:24px; color:#FFFFFF;">
-                <b>Witaj Ponownie</b>
-              </marquee>
-              <br>
-              <font size="3" color="#FFFFFF"><i>Zaloguj się na swoje konto, aby kontynuować</i></font>
-              <br><br>
+<!-- Logo -->
+<h2 style="color:red; margin:10px;">🎵 <span style="color:blue;">METAL VAULT</span></h2>
 
-              <table border="3" cellspacing="0" cellpadding="5" width="80%" bgcolor="#FFFF00" style="border: 3px groove #0000FF;">
-                <tr>
-                  <td align="center" bgcolor="#FF0000">
-                    <font size="3" color="#FFFFFF"><b>Logowanie</b></font>
-                  </td>
-                  <td align="center" bgcolor="#00FF00">
-                    <font size="3"><a href="rejestracja.html"><b>Rejestracja</b></a></font>
-                  </td>
-                </tr>
-              </table>
-              <br>
+<!-- Popupy -->
+<div id="popup1" class="popup" style="left:100px;top:200px;">📱 Wygraj iPhone 3G!</div>
+<div id="popup2" class="popup" style="left:300px;top:300px;">🎁 GRATULACJE! 1000, 9999</div>
+<div id="popup3" class="popup" style="left:500px;top:100px;">🧙‍♂️ Tajna sztuczka czarodzieja! Kliknij!</div>
 
-              <form action="/login" method="post">
-                <table border="1" cellpadding="3" cellspacing="2" style="border: 2px dashed #FF00FF;">
-                  <tr>
-                    <td align="left">
-                      <font size="3" color="#000000"><b>Email:</b></font>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" name="email" size="30" class="input-field">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left">
-                      <font size="3" color="#000000"><b>Hasło:</b></font>
-                      &nbsp;&nbsp;
-                      <font size="1"><a href="#">Zapomniałeś hasła?</a></font>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="password" name="password" size="30" class="input-field">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="center">
-                      <br>
-                      <input type="submit" value="Zaloguj się" class="btn">
-                    </td>
-                  </tr>
-                </table>
-              </form>
-              <br>
+<!-- Login + Czarodziej -->
+<div class="login-container">
+  <div class="login-form">
+    <h1>Witaj Ponownie</h1>
+    <p>Zaloguj się na swoje konto, aby kontynuować</p>
+    <button style="background:red;color:white;">Logowanie</button>
+    <button style="background:lime;color:black;">Rejestracja</button>
+    <br><br>
+    <label>Email :</label><br>
+    <input type="email" placeholder="Email"><br>
+    <label>Hasło :</label><br>
+    <input type="password" placeholder="Hasło"><br>
+    <a href="#" style="color:yellow;font-size:12px;">Zapomniałeś hasła?</a><br><br>
+    <button style="background:white;color:black;">Zaloguj się</button><br><br>
+    <p>LUB KONTYNUUJ PRZEZ</p>
+    <button style="background:green;color:white;">Google</button>
+    <button style="background:blue;color:white;">Facebook</button>
+  </div>
+  <div class="wizard">
+    <h2>Stary Czarodziej</h2>
+    <img id="wizard-img" src="login.png" width="200" height="200" alt="Wizard">
+  </div>
+</div>
 
-              <font size="3" color="#0000FF"><b>LUB KONTYNUUJ PRZEZ</b></font>
-              <br><br>
-
-              <input type="button" value="Google" class="social-btn">
-              &nbsp;
-              <input type="button" value="Facebook" class="social-btn">
-            </td>
-          </tr>
-        </table>
-      </td>
-
-      <td width="50%" class="wizard-cell" valign="middle">
-        <font size="4" color="#0000FF"><b>Stary Czarodziej!</b></font>
-        <br><br>
-        <img src="wizard.gif" alt="Epokowy czarodziej" width="250" height="250">
-      </td>
-    </tr>
-  </table>
-</center>
-
-<!-- SKRYPT DO ODBIJANIA POPUPÓW -->
-<script type="text/javascript">
-  // Tablica popupów
+<!-- Ruch Popupów -->
+<script>
   const popups = [
-    { id: "popup1", x: 100, y: 100, dx: 2, dy: 2 },
-    { id: "popup2", x: 300, y: 200, dx: 3, dy: 2 },
-    { id: "popup3", x: 500, y: 50, dx: 2, dy: 3 },
+    { id: "popup1", x: 100, y: 200, dx: 2, dy: 3 },
+    { id: "popup2", x: 300, y: 300, dx: 3, dy: 2 },
+    { id: "popup3", x: 500, y: 100, dx: 2, dy: 2 },
   ];
 
   function movePopups() {
@@ -167,21 +117,55 @@
       var el = document.getElementById(popup.id);
       popup.x += popup.dx;
       popup.y += popup.dy;
-
-      // Odbicie od krawędzi
-      if (popup.x + el.offsetWidth > window.innerWidth || popup.x < 0) {
-        popup.dx *= -1;
-      }
-      if (popup.y + el.offsetHeight > window.innerHeight || popup.y < 0) {
-        popup.dy *= -1;
-      }
-
+      if (popup.x + el.offsetWidth > window.innerWidth || popup.x < 0) popup.dx *= -1;
+      if (popup.y + el.offsetHeight > window.innerHeight || popup.y < 0) popup.dy *= -1;
       el.style.left = popup.x + "px";
       el.style.top = popup.y + "px";
     });
   }
+  setInterval(movePopups, 30);
+</script>
 
-  setInterval(movePopups, 20); // szybki ruch
+<!-- Chaos Skrypt -->
+<script>
+  function chaosStart() {
+    document.getElementById('fullscreen').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('gif1').style.display = 'block';
+      document.getElementById('gif2').style.display = 'block';
+      setInterval(moveGifs, 20);
+      setInterval(resizeGifs, 400);
+    }, 500); // krótka pauza
+  }
+
+  document.getElementById('wizard-img').onclick = chaosStart;
+  document.getElementById('popup3').onclick = chaosStart;
+
+  const gifs = [
+    { id: "gif1", x: 100, y: 100, dx: 3, dy: 2 },
+    { id: "gif2", x: 500, y: 300, dx: -2, dy: 3 },
+  ];
+
+  function moveGifs() {
+    gifs.forEach(function(gif) {
+      var el = document.getElementById(gif.id);
+      gif.x += gif.dx;
+      gif.y += gif.dy;
+      if (gif.x + el.offsetWidth > window.innerWidth || gif.x < 0) gif.dx *= -1;
+      if (gif.y + el.offsetHeight > window.innerHeight || gif.y < 0) gif.dy *= -1;
+      el.style.left = gif.x + "px";
+      el.style.top = gif.y + "px";
+    });
+  }
+
+  function resizeGifs() {
+    gifs.forEach(function(gif) {
+      var el = document.getElementById(gif.id);
+      var newSize = 80 + Math.random() * 120; // Rozmiar 80-200px
+      el.style.width = newSize + "px";
+      el.style.height = newSize + "px";
+    });
+  }
 </script>
 
 </body>
