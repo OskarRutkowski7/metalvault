@@ -1,161 +1,60 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="pl">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Logowanie - Metal Vault (Popupy odbijające się jak screensaver)</title>
-  <style type="text/css">
+  <meta charset="UTF-8">
+  <title>Metal Vault - MEGA CHAOS</title>
+  <style>
     body {
-      background-color: #00FFFF;
-      font-family: "Comic Sans MS", cursive, sans-serif;
-      color: #FF00FF;
+      margin: 0;
+      padding: 0;
       overflow: hidden;
+      background: cyan;
+      font-family: Comic Sans MS, cursive;
     }
-    .btn, .social-btn {
-      border: 3px dotted #FFFF00;
-      padding: 5px 15px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .btn {
-      background-color: #FF0000;
-      color: #FFFFFF;
-      font-size: 16px;
-    }
-    .social-btn {
-      background-color: #00FF00;
-      color: #FF0000;
-      font-size: 14px;
-    }
-    .input-field {
-      background-color: #FFFF00;
-      color: #0000FF;
-      border: 2px dashed #FF00FF;
-    }
-    a {
-      color: #FF0000;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .wizard-cell {
-      padding: 10px;
-      text-align: center;
-    }
-    .wizard-cell img {
-      border: 3px solid #FFFF00;
-    }
-    .popup {
+    .popup, .gif-fly {
       position: absolute;
-      width: 200px;
-      height: 100px;
-      background: #FFFF00;
-      border: 3px solid #FF0000;
-      padding: 10px;
-      font-size: 14px;
-      color: #0000FF;
-      text-align: center;
+      z-index: 1000;
+    }
+    .fullscreen-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('error.jpg') center center / cover no-repeat;
       z-index: 9999;
-      box-shadow: 5px 5px 15px #000000;
+      display: none;
+    }
+    #wizard-img {
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-<!-- Popupy -->
-<div id="popup1" class="popup">🔥 Wygraj iPhone 3G!</div>
-<div id="popup2" class="popup">🎁 GRATULACJE! Jesteś 1000. gościem!</div>
-<div id="popup3" class="popup">🧙‍♂️ Tajna sztuczka czarodzieja! Kliknij!</div>
+<!-- Overlay na cały ekran -->
+<div id="fullscreen" class="fullscreen-overlay"></div>
 
-<!-- Logo -->
-<div align="left" style="margin: 10px;">
-  <font size="6" color="#FF0000"><b>🎵 METAL <font color="#0000FF">VAULT</font></b></font>
+<!-- Popupy -->
+<div id="popup1" class="popup" style="left:100px;top:100px;background:yellow;border:2px solid red;padding:10px;">🔥 Wygraj iPhone 3G!</div>
+<div id="popup2" class="popup" style="left:300px;top:200px;background:yellow;border:2px solid red;padding:10px;">🎁 GRATULACJE!</div>
+<div id="popup3" class="popup" style="left:500px;top:50px;background:yellow;border:2px solid red;padding:10px;cursor:pointer;">🧙‍♂️ Tajna sztuczka czarodzieja! Kliknij!</div>
+
+<!-- Czarodziej -->
+<div style="position:absolute; top:150px; right:50px;">
+  <img id="wizard-img" src="wizard.gif" width="200" height="200" alt="Wizard">
 </div>
 
-<!-- Główny kontener -->
-<center>
-  <table border="5" cellspacing="0" cellpadding="10" width="700" bgcolor="#FF00FF" style="border: 5px double #FFFF00;">
-    <tr>
-      <td width="50%" valign="top">
-        <table border="5" cellspacing="0" cellpadding="10" width="100%" bgcolor="#FF00FF" style="border: 5px double #FFFF00;">
-          <tr>
-            <td align="center">
-              <marquee behavior="alternate" direction="left" style="font-size:24px; color:#FFFFFF;">
-                <b>Witaj Ponownie</b>
-              </marquee>
-              <br>
-              <font size="3" color="#FFFFFF"><i>Zaloguj się na swoje konto, aby kontynuować</i></font>
-              <br><br>
+<!-- Latające gify -->
+<div id="gif1" class="gif-fly" style="display:none;">
+  <iframe src="https://tenor.com/embed/7181370523727339110" frameborder="0" scrolling="no" width="150" height="150"></iframe>
+</div>
 
-              <table border="3" cellspacing="0" cellpadding="5" width="80%" bgcolor="#FFFF00" style="border: 3px groove #0000FF;">
-                <tr>
-                  <td align="center" bgcolor="#FF0000">
-                    <font size="3" color="#FFFFFF"><b>Logowanie</b></font>
-                  </td>
-                  <td align="center" bgcolor="#00FF00">
-                    <font size="3"><a href="rejestracja.html"><b>Rejestracja</b></a></font>
-                  </td>
-                </tr>
-              </table>
-              <br>
+<div id="gif2" class="gif-fly" style="display:none;">
+  <iframe src="https://tenor.com/embed/5842472256224520495" frameborder="0" scrolling="no" width="150" height="150"></iframe>
+</div>
 
-              <form action="/login" method="post">
-                <table border="1" cellpadding="3" cellspacing="2" style="border: 2px dashed #FF00FF;">
-                  <tr>
-                    <td align="left">
-                      <font size="3" color="#000000"><b>Email:</b></font>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" name="email" size="30" class="input-field">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left">
-                      <font size="3" color="#000000"><b>Hasło:</b></font>
-                      &nbsp;&nbsp;
-                      <font size="1"><a href="#">Zapomniałeś hasła?</a></font>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="password" name="password" size="30" class="input-field">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="center">
-                      <br>
-                      <input type="submit" value="Zaloguj się" class="btn">
-                    </td>
-                  </tr>
-                </table>
-              </form>
-              <br>
-
-              <font size="3" color="#0000FF"><b>LUB KONTYNUUJ PRZEZ</b></font>
-              <br><br>
-
-              <input type="button" value="Google" class="social-btn">
-              &nbsp;
-              <input type="button" value="Facebook" class="social-btn">
-            </td>
-          </tr>
-        </table>
-      </td>
-
-      <td width="50%" class="wizard-cell" valign="middle">
-        <font size="4" color="#0000FF"><b>Stary Czarodziej!</b></font>
-        <br><br>
-        <img src="wizard.gif" alt="Epokowy czarodziej" width="250" height="250">
-      </td>
-    </tr>
-  </table>
-</center>
-
-<!-- SKRYPT DO ODBIJANIA POPUPÓW -->
-<script type="text/javascript">
-  // Tablica popupów
+<!-- Skrypt poruszania popupów -->
+<script>
   const popups = [
     { id: "popup1", x: 100, y: 100, dx: 2, dy: 2 },
     { id: "popup2", x: 300, y: 200, dx: 3, dy: 2 },
@@ -167,21 +66,48 @@
       var el = document.getElementById(popup.id);
       popup.x += popup.dx;
       popup.y += popup.dy;
-
-      // Odbicie od krawędzi
-      if (popup.x + el.offsetWidth > window.innerWidth || popup.x < 0) {
-        popup.dx *= -1;
-      }
-      if (popup.y + el.offsetHeight > window.innerHeight || popup.y < 0) {
-        popup.dy *= -1;
-      }
-
+      if (popup.x + el.offsetWidth > window.innerWidth || popup.x < 0) popup.dx *= -1;
+      if (popup.y + el.offsetHeight > window.innerHeight || popup.y < 0) popup.dy *= -1;
       el.style.left = popup.x + "px";
       el.style.top = popup.y + "px";
     });
   }
+  setInterval(movePopups, 20);
+</script>
 
-  setInterval(movePopups, 20); // szybki ruch
+<!-- Skrypt kliknięcia czarodzieja i popup3 -->
+<script>
+  function chaosStart() {
+    document.getElementById('fullscreen').style.display = 'block';
+
+    setTimeout(() => {
+      document.getElementById('gif1').style.display = 'block';
+      document.getElementById('gif2').style.display = 'block';
+      moveGifs();
+      setInterval(moveGifs, 20);
+    }, 3000);
+  }
+
+  document.getElementById('wizard-img').onclick = chaosStart;
+  document.getElementById('popup3').onclick = chaosStart;
+
+  // Dane gifów
+  const gifs = [
+    { id: "gif1", x: 200, y: 200, dx: 2, dy: 2 },
+    { id: "gif2", x: 500, y: 300, dx: 3, dy: 3 },
+  ];
+
+  function moveGifs() {
+    gifs.forEach(function(gif) {
+      var el = document.getElementById(gif.id);
+      gif.x += gif.dx;
+      gif.y += gif.dy;
+      if (gif.x + el.offsetWidth > window.innerWidth || gif.x < 0) gif.dx *= -1;
+      if (gif.y + el.offsetHeight > window.innerHeight || gif.y < 0) gif.dy *= -1;
+      el.style.left = gif.x + "px";
+      el.style.top = gif.y + "px";
+    });
+  }
 </script>
 
 </body>
