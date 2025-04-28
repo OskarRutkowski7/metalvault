@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Logowanie - Metal Vault (Tandetna wersja z czarodziejem i popupami)</title>
+  <title>Logowanie - Metal Vault (Popupy odbijające się jak screensaver)</title>
   <style type="text/css">
     body {
       background-color: #00FFFF;
@@ -45,7 +45,6 @@
     .wizard-cell img {
       border: 3px solid #FFFF00;
     }
-    /* Styl popupów */
     .popup {
       position: absolute;
       width: 200px;
@@ -68,7 +67,7 @@
 <div id="popup2" class="popup">🎁 GRATULACJE! Jesteś 1000. gościem!</div>
 <div id="popup3" class="popup">🧙‍♂️ Tajna sztuczka czarodzieja! Kliknij!</div>
 
-<!-- Logo w lewym górnym rogu -->
+<!-- Logo -->
 <div align="left" style="margin: 10px;">
   <font size="6" color="#FF0000"><b>🎵 METAL <font color="#0000FF">VAULT</font></b></font>
 </div>
@@ -154,22 +153,35 @@
   </table>
 </center>
 
+<!-- SKRYPT DO ODBIJANIA POPUPÓW -->
 <script type="text/javascript">
-  // Funkcja do poruszania popupami
-  function movePopup(id) {
-    var popup = document.getElementById(id);
-    var x = Math.random() * (window.innerWidth - 200);
-    var y = Math.random() * (window.innerHeight - 100);
-    popup.style.left = x + "px";
-    popup.style.top = y + "px";
+  // Tablica popupów
+  const popups = [
+    { id: "popup1", x: 100, y: 100, dx: 2, dy: 2 },
+    { id: "popup2", x: 300, y: 200, dx: 3, dy: 2 },
+    { id: "popup3", x: 500, y: 50, dx: 2, dy: 3 },
+  ];
+
+  function movePopups() {
+    popups.forEach(function(popup) {
+      var el = document.getElementById(popup.id);
+      popup.x += popup.dx;
+      popup.y += popup.dy;
+
+      // Odbicie od krawędzi
+      if (popup.x + el.offsetWidth > window.innerWidth || popup.x < 0) {
+        popup.dx *= -1;
+      }
+      if (popup.y + el.offsetHeight > window.innerHeight || popup.y < 0) {
+        popup.dy *= -1;
+      }
+
+      el.style.left = popup.x + "px";
+      el.style.top = popup.y + "px";
+    });
   }
 
-  // Co 2 sekundy popupy zmieniają pozycję
-  setInterval(function() {
-    movePopup('popup1');
-    movePopup('popup2');
-    movePopup('popup3');
-  }, 2000);
+  setInterval(movePopups, 20); // szybki ruch
 </script>
 
 </body>
