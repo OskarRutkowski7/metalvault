@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Metal Vault - MEGA CHAOS</title>
+  <title>Metal Vault - CHAOS V2</title>
   <style>
     body {
       margin: 0;
@@ -10,6 +10,17 @@
       overflow: hidden;
       background: cyan;
       font-family: Comic Sans MS, cursive;
+    }
+    .login-container {
+      position: relative;
+      margin: 100px auto;
+      width: 400px;
+      background: #111;
+      padding: 20px;
+      border: 5px dotted magenta;
+      color: white;
+      text-align: center;
+      z-index: 1;
     }
     .popup, .gif-fly {
       position: absolute;
@@ -27,12 +38,27 @@
     #wizard-img {
       cursor: pointer;
     }
+    input, button {
+      margin: 5px;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
 
-<!-- Overlay na cały ekran -->
+<!-- Overlay -->
 <div id="fullscreen" class="fullscreen-overlay"></div>
+
+<!-- Strona logowania -->
+<div class="login-container">
+  <h1>Witaj Ponownie</h1>
+  <p>Zaloguj się na swoje konto, aby kontynuować</p>
+  <input type="email" placeholder="twój.email@przyklad.pl"><br>
+  <input type="password" placeholder="hasło"><br>
+  <button>Zaloguj się</button><br>
+  <button style="background:white;color:black;">Google</button>
+  <button style="background:white;color:black;">Facebook</button>
+</div>
 
 <!-- Popupy -->
 <div id="popup1" class="popup" style="left:100px;top:100px;background:yellow;border:2px solid red;padding:10px;">🔥 Wygraj iPhone 3G!</div>
@@ -45,13 +71,8 @@
 </div>
 
 <!-- Latające gify -->
-<div id="gif1" class="gif-fly" style="display:none;">
-  <iframe src="https://tenor.com/embed/7181370523727339110" frameborder="0" scrolling="no" width="150" height="150"></iframe>
-</div>
-
-<div id="gif2" class="gif-fly" style="display:none;">
-  <iframe src="https://tenor.com/embed/5842472256224520495" frameborder="0" scrolling="no" width="150" height="150"></iframe>
-</div>
+<img id="gif1" class="gif-fly" src="https://media.tenor.com/wgKOSeaMD-QAAAAC/jp2-papaj.gif" style="display:none; width:150px; height:150px;">
+<img id="gif2" class="gif-fly" src="https://media.tenor.com/GKFH9Gp7awsAAAAC/explos%C3%A3o-meme.gif" style="display:none; width:150px; height:150px;">
 
 <!-- Skrypt poruszania popupów -->
 <script>
@@ -81,10 +102,12 @@
     document.getElementById('fullscreen').style.display = 'block';
 
     setTimeout(() => {
+      document.getElementById('fullscreen').style.display = 'none';
       document.getElementById('gif1').style.display = 'block';
       document.getElementById('gif2').style.display = 'block';
       moveGifs();
       setInterval(moveGifs, 20);
+      setInterval(resizeGifs, 500);
     }, 3000);
   }
 
@@ -106,6 +129,15 @@
       if (gif.y + el.offsetHeight > window.innerHeight || gif.y < 0) gif.dy *= -1;
       el.style.left = gif.x + "px";
       el.style.top = gif.y + "px";
+    });
+  }
+
+  function resizeGifs() {
+    gifs.forEach(function(gif) {
+      var el = document.getElementById(gif.id);
+      var newSize = 100 + Math.random() * 100; // 100px do 200px
+      el.style.width = newSize + "px";
+      el.style.height = newSize + "px";
     });
   }
 </script>
