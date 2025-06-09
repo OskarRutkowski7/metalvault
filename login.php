@@ -43,7 +43,7 @@
                 error_log("Password verification successful");
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
-                header("Location: main.php");
+                header("Location: index.php");
                 exit();
             } else {
                 error_log("Password verification failed");

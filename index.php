@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Metal Vault - Sklep z Muzyką Metalową</title>
+    <style type="text/css">
+      body {
+        background-color: #1a1a1a;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        color: #ffffff;
+      }
+      .btn {
+        border: 2px solid #ff0000;
+        padding: 8px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #2a2a2a;
+        color: #ff0000;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+      .btn:hover {
+        background-color: #ff0000;
+        color: #ffffff;
+      }
+      .product-card {
+        background-color: #2a2a2a;
+        border: 2px solid #ff0000;
+        padding: 15px;
+        margin: 10px;
+        width: 200px;
+        display: inline-block;
+        vertical-align: top;
+        transition: transform 0.3s ease;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+      }
+      .product-image {
+        border: 2px solid #ff0000;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .nav-link {
+        color: #ff0000;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+        font-size: 18px;
+        transition: color 0.3s ease;
+      }
+      .nav-link:hover {
+        color: #ffffff;
+        text-decoration: none;
+      }
+      .search-bar {
+        background-color: #2a2a2a;
+        color: #ffffff;
+        border: 2px solid #ff0000;
+        padding: 8px 15px;
+        width: 300px;
+      }
+      .search-bar::placeholder {
+        color: #666666;
+      }
+      .section-title {
+        color: #ff0000;
+        font-size: 28px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 30px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .price {
+        color: #ff0000;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .artist-name {
+        color: #999999;
+        font-style: italic;
+      }
+      .album-title {
+        color: #ffffff;
+        font-size: 18px;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div align="left" style="margin: 20px;">
+      <font size="6" color="#ff0000"><b>🎵 METAL <font color="#ffffff">VAULT</font></b></font>
+    </div>
+
+    <!-- Navigation -->
+    <center>
+      <div style="margin: 30px;">
+        <a href="index.php" class="nav-link">Strona Główna</a>
+        <a href="login.php" class="nav-link">Logowanie</a>
+      </div>
+
+      <!-- Search Bar -->
+      <div style="margin: 30px;">
+        <input type="text" placeholder="Szukaj albumów..." class="search-bar">
+        <input type="button" value="Szukaj" class="btn">
+      </div>
+
+      <!-- Featured Products -->
+      <div style="margin: 30px;">
+        <h2 class="section-title">🔥 Gorące Nowości 🔥</h2>
+
+        <!-- Product Grid -->
+        <div style="width: 800px; margin: 0 auto;">
+          <!-- Product 1 -->
+          <div class="product-card">
+            <img src="album1.jpg" alt="Album 1" class="product-image">
+            <h3 class="album-title">Damnation</h3>
+            <p class="artist-name">Opeth</p>
+            <p class="price">99.99 PLN</p>
+            <input type="button" value="Dodaj do koszyka" class="btn">
+          </div>
+
+          <!-- Product 2 -->
+          <div class="product-card">
+            <img src="album2.jpg" alt="Album 2" class="product-image">
+            <h3 class="album-title">Jeszcze Nie Mamy Na Was Pomysłu</h3>
+            <p class="artist-name">Gruzja</p>
+            <p class="price">79.99 PLN</p>
+            <input type="button" value="Dodaj do koszyka" class="btn">
+          </div>
+
+          <!-- Product 3 -->
+          <div class="product-card">
+            <img src="album3.jpg" alt="Album 3" class="product-image">
+            <h3 class="album-title">Litourgiya</h3>
+            <p class="artist-name">Batushka</p>
+            <p class="price">89.99 PLN</p>
+            <input type="button" value="Dodaj do koszyka" class="btn">
+          </div>
+        </div>
+      </div>
+
+     
+    </center>
+
+    
+  </body>
+</html> 
