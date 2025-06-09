@@ -1,146 +1,148 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="pl">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Logowanie - Metal Vault (Tandetna wersja z czarodziejem)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metal Vault - Sklep z Muzyką Metalową</title>
     <style type="text/css">
       body {
-        background-color: #00FFFF; /* jaskrawy turkus */
+        background-color: #1a1a1a;
         font-family: "Comic Sans MS", cursive, sans-serif;
-        color: #FF00FF; /* fuksja */
-      }
-      /* Style dla przycisków i pól */
-      .btn, .social-btn {
-        border: 3px dotted #FFFF00;
-        padding: 5px 15px;
-        font-weight: bold;
-        cursor: pointer;
+        color: #ffffff;
       }
       .btn {
-        background-color: #FF0000; /* jaskrawa czerwień */
-        color: #FFFFFF;
+        border: 2px solid #ff0000;
+        padding: 8px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #2a2a2a;
+        color: #ff0000;
         font-size: 16px;
+        transition: all 0.3s ease;
       }
-      .social-btn {
-        background-color: #00FF00; /* jaskrawa zieleń */
-        color: #FF0000;
-        font-size: 14px;
+      .btn:hover {
+        background-color: #ff0000;
+        color: #ffffff;
       }
-      .input-field {
-        background-color: #FFFF00; /* jaskrawy żółty */
-        color: #0000FF; /* niebieski tekst */
-        border: 2px dashed #FF00FF;
+      .product-card {
+        background-color: #2a2a2a;
+        border: 2px solid #ff0000;
+        padding: 15px;
+        margin: 10px;
+        width: 200px;
+        display: inline-block;
+        vertical-align: top;
+        transition: transform 0.3s ease;
       }
-      a {
-        color: #FF0000; /* jaskrawa czerwień */
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+      }
+      .product-image {
+        border: 2px solid #ff0000;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .nav-link {
+        color: #ff0000;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+        font-size: 18px;
+        transition: color 0.3s ease;
+      }
+      .nav-link:hover {
+        color: #ffffff;
         text-decoration: none;
       }
-      a:hover {
-        text-decoration: underline;
+      .search-bar {
+        background-color: #2a2a2a;
+        color: #ffffff;
+        border: 2px solid #ff0000;
+        padding: 8px 15px;
+        width: 300px;
       }
-      /* Styl dla obrazka czarodzieja */
-      .wizard-cell {
-        padding: 10px;
-        text-align: center;
+      .search-bar::placeholder {
+        color: #666666;
       }
-      .wizard-cell img {
-        border: 3px solid #FFFF00;
+      .section-title {
+        color: #ff0000;
+        font-size: 28px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 30px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .price {
+        color: #ff0000;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .artist-name {
+        color: #999999;
+        font-style: italic;
+      }
+      .album-title {
+        color: #ffffff;
+        font-size: 18px;
+        margin: 10px 0;
       }
     </style>
   </head>
   <body>
-    <!-- Logo w lewym górnym rogu -->
-    <div align="left" style="margin: 10px;">
-      <font size="6" color="#FF0000"><b>🎵 METAL <font color="#0000FF">VAULT</font></b></font>
+    <!-- Header -->
+    <div align="left" style="margin: 20px;">
+      <font size="6" color="#ff0000"><b>🎵 METAL <font color="#ffffff">VAULT</font></b></font>
     </div>
-    
-    <!-- Główny kontener - centrowany za pomocą tabeli z dwiema kolumnami -->
+
+    <!-- Navigation -->
     <center>
-      <table border="5" cellspacing="0" cellpadding="10" width="700" bgcolor="#FF00FF" style="border: 5px double #FFFF00;">
-        <tr>
-          <!-- Lewa kolumna: sekcja logowania -->
-          <td width="50%" valign="top">
-            <table border="5" cellspacing="0" cellpadding="10" width="100%" bgcolor="#FF00FF" style="border: 5px double #FFFF00;">
-              <tr>
-                <td align="center">
-                  <!-- Nagłówek z efektem marquee -->
-                  <marquee behavior="alternate" direction="left" style="font-size:24px; color:#FFFFFF;">
-                    <b>Witaj Ponownie</b>
-                  </marquee>
-                  <br>
-                  <font size="3" color="#FFFFFF"><i>Zaloguj się na swoje konto, aby kontynuować</i></font>
-                  <br><br>
-                  
-                  <!-- Zakładki -->
-                  <table border="3" cellspacing="0" cellpadding="5" width="80%" bgcolor="#FFFF00" style="border: 3px groove #0000FF;">
-                    <tr>
-                      <td align="center" bgcolor="#FF0000">
-                        <font size="3" color="#FFFFFF"><b>Logowanie</b></font>
-                      </td>
-                      <td align="center" bgcolor="#00FF00">
-                        <font size="3"><a href="rejestracja.html"><b>Rejestracja</b></a></font>
-                      </td>
-                    </tr>
-                  </table>
-                  <br>
-                  
-                  <!-- Formularz logowania -->
-                  <form action="/login" method="post">
-                    <table border="1" cellpadding="3" cellspacing="2" style="border: 2px dashed #FF00FF;">
-                      <tr>
-                        <td align="left">
-                          <font size="3" color="#000000"><b>Email:</b></font>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <input type="text" name="email" size="30" class="input-field">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="left">
-                          <font size="3" color="#000000"><b>Hasło:</b></font>
-                          &nbsp;&nbsp;
-                          <font size="1"><a href="#">Zapomniałeś hasła?</a></font>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <input type="password" name="password" size="30" class="input-field">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td align="center">
-                          <br>
-                          <input type="submit" value="Zaloguj się" class="btn">
-                        </td>
-                      </tr>
-                    </table>
-                  </form>
-                  <br>
-                  
-                  <!-- Separator -->
-                  <font size="3" color="#0000FF"><b>LUB KONTYNUUJ PRZEZ</b></font>
-                  <br><br>
-                  
-                  <!-- Przycisk społecznościowy -->
-                  <input type="button" value="Google" class="social-btn">
-                  &nbsp;
-                  <input type="button" value="Facebook" class="social-btn">
-                </td>
-              </tr>
-            </table>
-          </td>
-          
-          <!-- Prawa kolumna: stary gif czarodzieja -->
-          <td width="50%" class="wizard-cell" valign="middle">
-            <font size="4" color="#0000FF"><b>Stary Czarodziej!</b></font>
-            <br><br>
-            <img src="wizard.gif" alt="Epokowy czarodziej" width="250" height="250">
-          </td>
-        </tr>
-      </table>
-      <br><br>
+      <div style="margin: 30px;">
+        <a href="index.html" class="nav-link">Strona Główna</a>
+        <a href="login.html" class="nav-link">Logowanie</a>
+      </div>
+
+      <!-- Search Bar -->
+      <div style="margin: 30px;">
+        <input type="text" placeholder="Szukaj albumów..." class="search-bar">
+        <input type="button" value="Szukaj" class="btn">
+      </div>
+
+      <!-- Featured Products -->
+      <div style="margin: 30px;">
+        <h2 class="section-title">🔥 Gorące Nowości 🔥</h2>
+
+        <!-- Product Grid -->
+        <div style="width: 800px; margin: 0 auto;">
+          <!-- Product 1 -->
+          <div class="product-card">
+            <img src="album1.jpg" alt="Album 1" class="product-image">
+            <h3 class="album-title">Damnation</h3>
+            <p class="artist-name">Opeth</p>
+            <p class="price">99.99 PLN</p>
+            <input type="button" value="Dodaj do koszyka" class="btn">
+          </div>
+
+          <!-- Product 2 -->
+          <div class="product-card">
+            <img src="album2.jpg" alt="Album 2" class="product-image">
+            <h3 class="album-title">Jeszcze Nie Mamy Na Was Pomysłu</h3>
+            <p class="artist-name">Gruzja</p>
+            <p class="price">79.99 PLN</p>
+            <input type="button" value="Dodaj do koszyka" class="btn">
+          </div>
+
+          <!-- Product 3 -->
+          <div class="product-card">
+            <img src="album3.jpg" alt="Album 3" class="product-image">
+            <h3 class="album-title">Litourgiya</h3>
+            <p class="artist-name">Batushka</p>
+            <p class="price">89.99 PLN</p>
+            <input type="button" value="Dodaj do koszyka" class="btn">
+          </div>
+        </div>
+      </div>
     </center>
   </body>
-</html>
+</html> 
