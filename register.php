@@ -1,10 +1,51 @@
 <?php
 session_start();
 
-// If user is already logged in, redirect to index
-if (isset($_SESSION['user_id'])) {
-    header("Location: index.php");
-    exit();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $servername = "localhost";
+    $dbname = "metalvault";
+    $username = "root";
+    $password = "";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $firstName = $conn->real_escape_string($_POST['firstName']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+
+    if ($password !== $confirmPassword) {
+        header("Location: register.php?error=password_mismatch");
+        exit();
+    }
+
+    // Check if email already exists
+    $sql = "SELECT id FROM users WHERE email = '$email'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        header("Location: register.php?error=email_exists");
+        exit();
+    }
+
+    // Hash password
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    // Insert new user
+    $sql = "INSERT INTO users (username, email, password) VALUES ('$firstName', '$email', '$hashedPassword')";
+    
+    if ($conn->query($sql) === TRUE) {
+        header("Location: login.html?registered=true");
+        exit();
+    } else {
+        header("Location: register.php?error=registration_failed");
+        exit();
+    }
+
+    $conn->close();
 }
 ?>
 <!DOCTYPE html>
@@ -12,7 +53,7 @@ if (isset($_SESSION['user_id'])) {
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logowanie - Metal Vault</title>
+    <title>Rejestracja - Metal Vault</title>
     <style type="text/css">
       body {
         background-color: #1a1a1a;
@@ -45,7 +86,7 @@ if (isset($_SESSION['user_id'])) {
         color: #ffffff;
         text-decoration: none;
       }
-      .login-container {
+      .register-container {
         background-color: #2a2a2a;
         border: 2px solid #ff0000;
         padding: 30px;
@@ -79,17 +120,6 @@ if (isset($_SESSION['user_id'])) {
         color: #ffffff;
         display: block;
         margin-bottom: 5px;
-      }
-      .forgot-password {
-        color: #666666;
-        font-size: 14px;
-        text-decoration: none;
-        display: block;
-        text-align: right;
-        margin-top: 5px;
-      }
-      .forgot-password:hover {
-        color: #ff0000;
       }
       .social-login {
         text-align: center;
@@ -129,14 +159,6 @@ if (isset($_SESSION['user_id'])) {
         background-color: rgba(255, 0, 0, 0.1);
         border-radius: 5px;
       }
-      .success-message {
-        color: #00ff00;
-        text-align: center;
-        margin-bottom: 15px;
-        padding: 10px;
-        background-color: rgba(0, 255, 0, 0.1);
-        border-radius: 5px;
-      }
     </style>
   </head>
   <body>
@@ -149,23 +171,37 @@ if (isset($_SESSION['user_id'])) {
     <center>
       <div style="margin: 30px;">
         <a href="index.php" class="nav-link">Strona Główna</a>
-        <a href="register.php" class="nav-link">Rejestracja</a>
+        <a href="login.html" class="nav-link">Logowanie</a>
       </div>
 
-      <!-- Login Form -->
-      <div class="login-container">
-        <h2 class="form-title">Logowanie</h2>
-        <?php if (isset($_GET['registered']) && $_GET['registered'] == 'true'): ?>
-          <div class="success-message">
-            Rejestracja zakończona pomyślnie! Możesz się teraz zalogować.
-          </div>
-        <?php endif; ?>
-        <?php if (isset($_GET['error']) && $_GET['error'] == 'invalid'): ?>
+      <!-- Register Form -->
+      <div class="register-container">
+        <h2 class="form-title">Rejestracja</h2>
+        <?php if (isset($_GET['error'])): ?>
           <div class="error-message">
-            Nieprawidłowy email lub hasło
+            <?php
+            switch($_GET['error']) {
+                case 'password_mismatch':
+                    echo 'Hasła nie są identyczne';
+                    break;
+                case 'email_exists':
+                    echo 'Ten email jest już zarejestrowany';
+                    break;
+                case 'registration_failed':
+                    echo 'Wystąpił błąd podczas rejestracji';
+                    break;
+                default:
+                    echo 'Wystąpił nieznany błąd';
+            }
+            ?>
           </div>
         <?php endif; ?>
-        <form action="login.php" method="post">
+        <form action="register.php" method="post" onsubmit="return validateForm()">
+          <div class="form-group">
+            <label class="form-label">Imię:</label>
+            <input type="text" name="firstName" class="input-field" placeholder="Wprowadź swoje imię" required>
+          </div>
+          
           <div class="form-group">
             <label class="form-label">Email:</label>
             <input type="email" name="email" class="input-field" placeholder="Wprowadź swój email" required>
@@ -173,16 +209,20 @@ if (isset($_SESSION['user_id'])) {
           
           <div class="form-group">
             <label class="form-label">Hasło:</label>
-            <input type="password" name="password" class="input-field" placeholder="Wprowadź swoje hasło" required>
-            <a href="#" class="forgot-password">Zapomniałeś hasła?</a>
+            <input type="password" name="password" id="password" class="input-field" placeholder="Wprowadź swoje hasło" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Potwierdź hasło:</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" class="input-field" placeholder="Potwierdź swoje hasło" required>
           </div>
 
           <div class="form-group">
-            <input type="submit" value="Zaloguj się" class="btn" style="width: 100%;">
+            <input type="submit" value="Zarejestruj się" class="btn" style="width: 100%;">
           </div>
         </form>
 
-        <a href="register.php" class="login-link">Nie masz konta? Zarejestruj się</a>
+        <a href="login.html" class="login-link">Masz już konto? Zaloguj się</a>
 
         <div class="social-login">
           <p style="color: #666666;">LUB KONTYNUUJ PRZEZ</p>
@@ -191,5 +231,18 @@ if (isset($_SESSION['user_id'])) {
         </div>
       </div>
     </center>
+
+    <script>
+      function validateForm() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        
+        if (password !== confirmPassword) {
+          alert("Hasła nie są identyczne!");
+          return false;
+        }
+        return true;
+      }
+    </script>
   </body>
 </html> 

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pl">
   <head>
@@ -88,20 +91,41 @@
         font-size: 18px;
         margin: 10px 0;
       }
+      .user-welcome {
+        color: #ffffff;
+        margin-left: 20px;
+      }
+      .cart-count {
+        background-color: #ff0000;
+        color: #ffffff;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+        margin-left: 5px;
+      }
     </style>
   </head>
   <body>
     <!-- Header -->
     <div align="left" style="margin: 20px;">
       <font size="6" color="#ff0000"><b>🎵 METAL <font color="#ffffff">VAULT</font></b></font>
+      <?php if (isset($_SESSION['username'])): ?>
+        <span class="user-welcome">Witaj, <?php echo htmlspecialchars($_SESSION['username']); ?>!</span>
+      <?php endif; ?>
     </div>
 
     <!-- Navigation -->
     <center>
       <div style="margin: 30px;">
-        <a href="index.html" class="nav-link">Strona Główna</a>
-        <a href="login.html" class="nav-link">Logowanie</a>
-        <a href="register.html" class="nav-link">Rejestracja</a>
+        <a href="index.php" class="nav-link">Strona Główna</a>
+        <?php if (isset($_SESSION['user_id'])): ?>
+          <a href="profile.php" class="nav-link">Profil</a>
+          <a href="checkout.php" class="nav-link">Koszyk</a>
+          <a href="logout.php" class="nav-link">Wyloguj</a>
+        <?php else: ?>
+          <a href="login.php" class="nav-link">Logowanie</a>
+          <a href="register.php" class="nav-link">Rejestracja</a>
+        <?php endif; ?>
       </div>
 
       <!-- Search Bar -->
@@ -116,34 +140,64 @@
 
         <!-- Product Grid -->
         <div style="width: 800px; margin: 0 auto;">
-          <!-- Product 1 -->
-          <div class="product-card">
-            <img src="album1.jpg" alt="Album 1" class="product-image">
-            <h3 class="album-title">Damnation</h3>
-            <p class="artist-name">Opeth</p>
-            <p class="price">99.99 PLN</p>
-            <input type="button" value="Dodaj do koszyka" class="btn">
-          </div>
+          <?php
+          $servername = "localhost";
+          $dbname = "metalvault";
+          $username = "root";
+          $password = "";
 
-          <!-- Product 2 -->
-          <div class="product-card">
-            <img src="album2.jpg" alt="Album 2" class="product-image">
-            <h3 class="album-title">Jeszcze Nie Mamy Na Was Pomysłu</h3>
-            <p class="artist-name">Gruzja</p>
-            <p class="price">79.99 PLN</p>
-            <input type="button" value="Dodaj do koszyka" class="btn">
-          </div>
+          $conn = new mysqli($servername, $username, $password, $dbname);
 
-          <!-- Product 3 -->
-          <div class="product-card">
-            <img src="album3.jpg" alt="Album 3" class="product-image">
-            <h3 class="album-title">Litourgiya</h3>
-            <p class="artist-name">Batushka</p>
-            <p class="price">89.99 PLN</p>
-            <input type="button" value="Dodaj do koszyka" class="btn">
-          </div>
+          if ($conn->connect_error) {
+              die("Connection failed: " . $conn->connect_error);
+          }
+
+          $sql = "SELECT * FROM products ORDER BY created_at DESC LIMIT 3";
+          $result = $conn->query($sql);
+
+          if ($result->num_rows > 0) {
+              while($row = $result->fetch_assoc()) {
+                  echo '<div class="product-card">';
+                  echo '<img src="' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['title']) . '" class="product-image">';
+                  echo '<h3 class="album-title">' . htmlspecialchars($row['title']) . '</h3>';
+                  echo '<p class="artist-name">' . htmlspecialchars($row['artist']) . '</p>';
+                  echo '<p class="price">' . number_format($row['price'], 2) . ' PLN</p>';
+                  if (isset($_SESSION['user_id'])) {
+                      echo '<button onclick="addToCart(' . $row['id'] . ')" class="btn">Dodaj do koszyka</button>';
+                  } else {
+                      echo '<a href="login.php" class="btn">Zaloguj się, aby kupić</a>';
+                  }
+                  echo '</div>';
+              }
+          }
+          $conn->close();
+          ?>
         </div>
       </div>
     </center>
+
+    <script>
+    function addToCart(productId) {
+        fetch('add_to_cart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'product_id=' + productId
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Produkt dodany do koszyka!');
+            } else {
+                alert(data.message || 'Wystąpił błąd podczas dodawania do koszyka.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Wystąpił błąd podczas dodawania do koszyka.');
+        });
+    }
+    </script>
   </body>
 </html> 
